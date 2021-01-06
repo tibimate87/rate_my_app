@@ -1,28 +1,27 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:rate_app_dialog/channel_calls.dart';
-import 'package:rate_app_dialog/lang_texts.dart';
+import 'package:rate_my_app/starrating.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:meseljnekem/main.dart';
-import 'package:meseljnekem/Tools/Localization.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'constants.dart';
-import 'star_rating.dart';
+import 'channel_calls.dart';
+import 'constans.dart';
 
 class RateDialog extends StatefulWidget {
   final int minimeRateIsGood;
   final bool afterStarRedirect;
   final Image image;
   final String emailAdmin;
-  final Map<String, Map<String, String>> langTexts;
+  final Map<String, String> texts;
+  final Function sendDataToFB;
+  // final Map<String, Map<String, String>> langTexts;
 
   RateDialog({
     @required this.minimeRateIsGood,
     this.image,
     this.afterStarRedirect,
     this.emailAdmin = '',
-    @required this.langTexts,
+    @required this.texts,
+    @required this.sendDataToFB,
+    // @required this.langTexts,
   });
 
   @override
@@ -49,26 +48,26 @@ class _RateDialogState extends State<RateDialog> {
       langArrayPosition = value;
       //Concatenating the two lists to add the language modifications
       Map<String, String> langText = {};
-      if (widget.langTexts != null) {
-        LangTexts().text[langArrayPosition].forEach((key, value) {
-          if (widget.langTexts[langArrayPosition] !=
-              null) if (widget.langTexts[langArrayPosition][key] != null)
-            langText.addAll(
-                {key: widget.langTexts[langArrayPosition][key].toString()});
-          else
-            langText.addAll({key: value});
-          else
-            langText.addAll({key: value});
-        });
-      } else
-        langText = LangTexts().text["en"];
+      // if (widget.langTexts != null) {
+      //   LangTexts().text[langArrayPosition].forEach((key, value) {
+      //     if (widget.langTexts[langArrayPosition] !=
+      //         null) if (widget.langTexts[langArrayPosition][key] != null)
+      //       langText.addAll(
+      //           {key: widget.langTexts[langArrayPosition][key].toString()});
+      //     else
+      //       langText.addAll({key: value});
+      //     else
+      //       langText.addAll({key: value});
+      //   });
+      // } else
+      //   langText = LangTexts().text["en"];
 
-      _langTexts = langText;
-      debugPrint("langs =======> ${_langTexts.toString()}");
-      setState(() {});
+      // _langTexts = langText;
+      // debugPrint("langs =======> ${_langTexts.toString()}");
+      // setState(() {});
     });
 
-    _langTexts = LangTexts().text[langArrayPosition];
+    // _langTexts = LangTexts().text[langArrayPosition];
 
     minimeRateIsGood = widget.minimeRateIsGood;
     ratedStars = 0;
@@ -141,7 +140,8 @@ class _RateDialogState extends State<RateDialog> {
       mainAxisSize: MainAxisSize.min, // To make the card compact
       children: <Widget>[
         Text(
-          DemoLocalizations.of(context).titleRate,
+          widget.texts['titleRate'],
+          // DemoLocalizations.of(context).titleRate,
           textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: 24.0,
@@ -150,7 +150,8 @@ class _RateDialogState extends State<RateDialog> {
         ),
         SizedBox(height: 16.0),
         Text(
-          DemoLocalizations.of(context).description,
+          widget.texts['description'],
+          // DemoLocalizations.of(context).description,
           textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: 16.0, color: Theme.of(context).textSelectionColor),
@@ -167,7 +168,8 @@ class _RateDialogState extends State<RateDialog> {
               Navigator.of(context).pop(); // To close the dialog
             },
             child: Text(
-              DemoLocalizations.of(context).btnLater,
+              widget.texts['btnLater'],
+              // DemoLocalizations.of(context).btnLater,
               style: TextStyle(color: Theme.of(context).textSelectionColor),
             ),
           ),
@@ -181,7 +183,8 @@ class _RateDialogState extends State<RateDialog> {
       mainAxisSize: MainAxisSize.min, // To make the card compact
       children: <Widget>[
         Text(
-          DemoLocalizations.of(context).titleRate,
+          widget.texts['titleRate'],
+          // DemoLocalizations.of(context).titleRate,
           style: TextStyle(
               fontSize: 24.0,
               fontWeight: FontWeight.w700,
@@ -190,7 +193,8 @@ class _RateDialogState extends State<RateDialog> {
         SizedBox(height: 16.0),
         Container(
           child: Text(
-            _langTexts['goodRateDescription'] ?? '',
+            '',
+            // _langTexts['goodRateDescription'] ?? '',
             textAlign: TextAlign.center,
             style: TextStyle(color: Theme.of(context).textSelectionColor),
           ),
@@ -205,19 +209,26 @@ class _RateDialogState extends State<RateDialog> {
               ChannelCall().openPlayStore();
 
               var timeStamp = DateTime.now();
-
-              Firestore.instance.collection("AppFeedback").document().setData({
+              var data = {
                 "timeStamp": timeStamp,
                 "rateStare": ratedStars,
                 "feeback": "",
-                "user": auth.user().uid,
-              });
+              };
+
+              widget.sendDataToFB(data);
+              // Firestore.instance.collection("AppFeedback").document().setData({
+              //   "timeStamp": timeStamp,
+              //   "rateStare": ratedStars,
+              //   "feeback": "",
+              //   "user": auth.user().uid,
+              // });
 
               _updateRatedDatabase(rated: true);
               Navigator.pop(context);
             },
             child: Text(
-              _langTexts['goodBtnRate'],
+              '',
+              // _langTexts['goodBtnRate'],
               style: TextStyle(color: Theme.of(context).textSelectionColor),
             ),
           ),
@@ -233,7 +244,8 @@ class _RateDialogState extends State<RateDialog> {
         mainAxisSize: MainAxisSize.min, // To make the card compact
         children: <Widget>[
           Text(
-            DemoLocalizations.of(context).title,
+            widget.texts['title'],
+            // DemoLocalizations.of(context).title,
             style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700,
@@ -243,7 +255,8 @@ class _RateDialogState extends State<RateDialog> {
           Center(child: callRating()),
           SizedBox(height: 16.0),
           Text(
-            DemoLocalizations.of(context).badRateDescription,
+            widget.texts['badRateDescription'],
+            // DemoLocalizations.of(context).badRateDescription,
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 16.0, color: Theme.of(context).textSelectionColor),
@@ -256,7 +269,8 @@ class _RateDialogState extends State<RateDialog> {
               maxLines: 4,
               validator: (value) {
                 if (value.isEmpty) {
-                  return DemoLocalizations.of(context).badValidation;
+                  return widget.texts[
+                      'badValidation']; //, DemoLocalizations.of(context).badValidation;
                 }
                 return null;
               },
@@ -279,7 +293,8 @@ class _RateDialogState extends State<RateDialog> {
                   ),
                   hintStyle:
                       TextStyle(color: Theme.of(context).textSelectionColor),
-                  hintText: DemoLocalizations.of(context).badRateTextAreaHinit),
+                  hintText: widget.texts[
+                      'badRateTextAreaHinit']), //  DemoLocalizations.of(context).badRateTextAreaHinit),
             ),
           ),
           SizedBox(
@@ -292,15 +307,22 @@ class _RateDialogState extends State<RateDialog> {
                 if (_formKey.currentState.validate()) {
                   var timeStamp = DateTime.now();
 
-                  Firestore.instance
-                      .collection("AppFeedback")
-                      .document()
-                      .setData({
+                  var data = {
                     "timeStamp": timeStamp,
                     "rateStare": ratedStars,
                     "feeback": _textController.value.text,
-                    "user": auth.user().uid,
-                  });
+                  };
+
+                  widget.sendDataToFB(data);
+                  // Firestore.instance
+                  //     .collection("AppFeedback")
+                  //     .document()
+                  //     .setData({
+                  //   "timeStamp": timeStamp,
+                  //   "rateStare": ratedStars,
+                  //   "feeback": _textController.value.text,
+                  //   "user": auth.user().uid,
+                  // });
 
                   // if (widget.emailAdmin.isNotEmpty) {
                   //   ChannelCall().sendEmail(
@@ -312,7 +334,8 @@ class _RateDialogState extends State<RateDialog> {
                 }
               },
               child: Text(
-                DemoLocalizations.of(context).badBtnSend,
+                widget.texts['badBtnSend'],
+                // DemoLocalizations.of(context).badBtnSend,
                 style: TextStyle(color: Theme.of(context).textSelectionColor),
               ),
             ),
@@ -346,15 +369,24 @@ class _RateDialogState extends State<RateDialog> {
               if (widget.afterStarRedirect) {
                 debugPrint("forcedRedirect after stars");
                 var timeStamp = DateTime.now();
-                Firestore.instance
-                    .collection("AppFeedback")
-                    .document()
-                    .setData({
+
+                var data = {
                   "timeStamp": timeStamp,
                   "rateStare": ratedStars,
                   "feeback": "",
-                  "user": auth.user().uid,
-                });
+                };
+
+                widget.sendDataToFB(data);
+
+                // Firestore.instance
+                //     .collection("AppFeedback")
+                //     .document()
+                //     .setData({
+                //   "timeStamp": timeStamp,
+                //   "rateStare": ratedStars,
+                //   "feeback": "",
+                //   "user": auth.user().uid,
+                // });
 
                 ChannelCall().openPlayStore();
                 _updateRatedDatabase(rated: true);
