@@ -63,7 +63,7 @@ class RateAppDialog {
                     afterStarRedirect: afterStarRedirect,
                     minimeRateIsGood: minimeRateIsGood,
                     emailAdmin: emailAdmin,
-                    texts: null,
+                    texts: texts,
                     sendDataToFB: (data) => sendDataToFB(data),
                   )));
     } else
