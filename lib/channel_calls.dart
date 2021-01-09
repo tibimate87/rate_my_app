@@ -20,8 +20,8 @@ class ChannelCall {
   // }
 
   // Future<void> requestReview() async {
-  //   var result = await _channel.invokeMethod("requestReview");
-  //   debugPrint("result: $result");
+  //   // var result = await _channel.invokeMethod("requestReview");
+  //   // debugPrint("result: $result");
   // }
 
   // Future<bool> isRequestAvaliable() async {
