@@ -44,28 +44,28 @@ class _RateDialogState extends State<RateDialog> {
   @override
   void initState() {
     super.initState();
-    ChannelCall().getDeviceLang().then((value) {
-      langArrayPosition = value;
-      //Concatenating the two lists to add the language modifications
-      Map<String, String> langText = {};
-      // if (widget.langTexts != null) {
-      //   LangTexts().text[langArrayPosition].forEach((key, value) {
-      //     if (widget.langTexts[langArrayPosition] !=
-      //         null) if (widget.langTexts[langArrayPosition][key] != null)
-      //       langText.addAll(
-      //           {key: widget.langTexts[langArrayPosition][key].toString()});
-      //     else
-      //       langText.addAll({key: value});
-      //     else
-      //       langText.addAll({key: value});
-      //   });
-      // } else
-      //   langText = LangTexts().text["en"];
+    // ChannelCall().getDeviceLang().then((value) {
+    //   langArrayPosition = value;
+    //   //Concatenating the two lists to add the language modifications
+    //   Map<String, String> langText = {};
+    //   // if (widget.langTexts != null) {
+    //   //   LangTexts().text[langArrayPosition].forEach((key, value) {
+    //   //     if (widget.langTexts[langArrayPosition] !=
+    //   //         null) if (widget.langTexts[langArrayPosition][key] != null)
+    //   //       langText.addAll(
+    //   //           {key: widget.langTexts[langArrayPosition][key].toString()});
+    //   //     else
+    //   //       langText.addAll({key: value});
+    //   //     else
+    //   //       langText.addAll({key: value});
+    //   //   });
+    //   // } else
+    //   //   langText = LangTexts().text["en"];
 
-      // _langTexts = langText;
-      // debugPrint("langs =======> ${_langTexts.toString()}");
-      // setState(() {});
-    });
+    //   // _langTexts = langText;
+    //   // debugPrint("langs =======> ${_langTexts.toString()}");
+    //   // setState(() {});
+    // });
 
     // _langTexts = LangTexts().text[langArrayPosition];
 

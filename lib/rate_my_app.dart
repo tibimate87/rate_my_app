@@ -35,59 +35,59 @@ class RateAppDialog {
       this.texts,
       @required this.sendDataToFB});
 
-  requestRate() async {
-    int numeroRequest = await _updateRateRequest();
-    final SharedPreferences prefs = await _prefs;
-    bool isAvaliableRequest = false;
+  // requestRate() async {
+  //   int numeroRequest = await _updateRateRequest();
+  //   final SharedPreferences prefs = await _prefs;
+  //   bool isAvaliableRequest = false;
 
-    debugPrint(
-        "rate_app_dialog:debugPrint | numberOfRequest: $numeroRequest minimeRequestToShow: $minimeRequestToShow");
+  //   debugPrint(
+  //       "rate_app_dialog:debugPrint | numberOfRequest: $numeroRequest minimeRequestToShow: $minimeRequestToShow");
 
-    if (Platform.isIOS) {
-      isAvaliableRequest = await ChannelCall().isRequestAvaliable();
-    }
+  //   // if (Platform.isIOS) {
+  //   //   isAvaliableRequest = await ChannelCall().isRequestAvaliable();
+  //   // }
 
-    if (!(prefs.getBool(Constants.table_rated) ?? false) &&
-        numeroRequest >= minimeRequestToShow) {
-      if (customDialogIOS == false && isAvaliableRequest) {
-        await ChannelCall().requestReview();
-        _updateRatedDatabase(rated: true);
-        return;
-      }
+  //   if (!(prefs.getBool(Constants.table_rated) ?? false) &&
+  //       numeroRequest >= minimeRequestToShow) {
+  //     if (customDialogIOS == false && isAvaliableRequest) {
+  //       await ChannelCall().requestReview();
+  //       _updateRatedDatabase(rated: true);
+  //       return;
+  //     }
 
-      Timer(
-          Duration(seconds: timeToShow),
-          () => showDialog(
-              context: context,
-              builder: (BuildContext context) => RateDialog(
-                    afterStarRedirect: afterStarRedirect,
-                    minimeRateIsGood: minimeRateIsGood,
-                    emailAdmin: emailAdmin,
-                    texts: texts,
-                    sendDataToFB: (data) => sendDataToFB(data),
-                  )));
-    } else
-      debugPrint("rate_app_dialog:debugPrint | this user rated");
-  }
+  //     Timer(
+  //         Duration(seconds: timeToShow),
+  //         () => showDialog(
+  //             context: context,
+  //             builder: (BuildContext context) => RateDialog(
+  //                   afterStarRedirect: afterStarRedirect,
+  //                   minimeRateIsGood: minimeRateIsGood,
+  //                   emailAdmin: emailAdmin,
+  //                   texts: texts,
+  //                   sendDataToFB: (data) => sendDataToFB(data),
+  //                 )));
+  //   } else
+  //     debugPrint("rate_app_dialog:debugPrint | this user rated");
+  // }
 
-  Future<int> _updateRateRequest() async {
-    final SharedPreferences prefs = await _prefs;
-    int minimeRequestToShow =
-        (prefs.getInt(Constants.table_rate_minime_request) ?? 0) + 1;
-    int saved = await prefs
-        .setInt(Constants.table_rate_minime_request, minimeRequestToShow)
-        .then((bool success) {
-      return minimeRequestToShow;
-    });
-    return saved;
-  }
+  // Future<int> _updateRateRequest() async {
+  //   final SharedPreferences prefs = await _prefs;
+  //   int minimeRequestToShow =
+  //       (prefs.getInt(Constants.table_rate_minime_request) ?? 0) + 1;
+  //   int saved = await prefs
+  //       .setInt(Constants.table_rate_minime_request, minimeRequestToShow)
+  //       .then((bool success) {
+  //     return minimeRequestToShow;
+  //   });
+  //   return saved;
+  // }
 
-  Future<void> _updateRatedDatabase({@required rated}) async {
-    final SharedPreferences prefs = await _prefs;
-    prefs.setBool(Constants.table_rated, rated).then((bool success) {
-      return success;
-    });
-  }
+  // Future<void> _updateRatedDatabase({@required rated}) async {
+  //   final SharedPreferences prefs = await _prefs;
+  //   prefs.setBool(Constants.table_rated, rated).then((bool success) {
+  //     return success;
+  //   });
+  // }
 
   /// Sugestion: Aakash Kumar | git: @kumar-aakash86
   /// https://github.com/kellvembarbosa/rate_app_dialog/issues/1
