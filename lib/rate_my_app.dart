@@ -1,13 +1,11 @@
 library rate_my_app;
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'channel_calls.dart';
 import 'constans.dart';
 import 'rate_dialog.dart';
 
@@ -38,7 +36,6 @@ class RateAppDialog {
   requestRate() async {
     int numeroRequest = await _updateRateRequest();
     final SharedPreferences prefs = await _prefs;
-    bool isAvaliableRequest = false;
 
     debugPrint(
         "rate_app_dialog:debugPrint | numberOfRequest: $numeroRequest minimeRequestToShow: $minimeRequestToShow");

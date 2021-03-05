@@ -35,7 +35,6 @@ class _RateDialogState extends State<RateDialog> {
   int minimeRateIsGood;
   int ratedStars;
 
-  var _langTexts;
   String langArrayPosition = "en";
   final _formKey = GlobalKey<FormState>();
   final _textController = TextEditingController();
@@ -85,7 +84,8 @@ class _RateDialogState extends State<RateDialog> {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        textSelectionColor: Colors.black12,
+        textSelectionTheme:
+            TextSelectionThemeData(selectionColor: Colors.black12),
       ),
       child: Dialog(
         shape: RoundedRectangleBorder(
@@ -146,7 +146,7 @@ class _RateDialogState extends State<RateDialog> {
           style: TextStyle(
               fontSize: 24.0,
               fontWeight: FontWeight.w700,
-              color: Theme.of(context).textSelectionColor),
+              color: Theme.of(context).textSelectionTheme.selectionColor),
         ),
         SizedBox(height: 16.0),
         Text(
@@ -154,7 +154,8 @@ class _RateDialogState extends State<RateDialog> {
           // DemoLocalizations.of(context).description,
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 16.0, color: Theme.of(context).textSelectionColor),
+              fontSize: 16.0,
+              color: Theme.of(context).textSelectionTheme.selectionColor),
         ),
         SizedBox(height: 24.0),
         Center(child: callRating()),
@@ -163,14 +164,15 @@ class _RateDialogState extends State<RateDialog> {
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: FlatButton(
+          child: TextButton(
             onPressed: () {
               Navigator.of(context).pop(); // To close the dialog
             },
             child: Text(
               widget.texts['btnLater'],
               // DemoLocalizations.of(context).btnLater,
-              style: TextStyle(color: Theme.of(context).textSelectionColor),
+              style: TextStyle(
+                  color: Theme.of(context).textSelectionTheme.selectionColor),
             ),
           ),
         ),
@@ -188,7 +190,7 @@ class _RateDialogState extends State<RateDialog> {
           style: TextStyle(
               fontSize: 24.0,
               fontWeight: FontWeight.w700,
-              color: Theme.of(context).textSelectionColor),
+              color: Theme.of(context).textSelectionTheme.selectionColor),
         ),
         SizedBox(height: 16.0),
         Container(
@@ -196,7 +198,8 @@ class _RateDialogState extends State<RateDialog> {
             '',
             // _langTexts['goodRateDescription'] ?? '',
             textAlign: TextAlign.center,
-            style: TextStyle(color: Theme.of(context).textSelectionColor),
+            style: TextStyle(
+                color: Theme.of(context).textSelectionTheme.selectionColor),
           ),
         ),
         SizedBox(
@@ -204,7 +207,7 @@ class _RateDialogState extends State<RateDialog> {
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: FlatButton(
+          child: TextButton(
             onPressed: () {
               ChannelCall().openPlayStore();
 
@@ -229,7 +232,8 @@ class _RateDialogState extends State<RateDialog> {
             child: Text(
               '',
               // _langTexts['goodBtnRate'],
-              style: TextStyle(color: Theme.of(context).textSelectionColor),
+              style: TextStyle(
+                  color: Theme.of(context).textSelectionTheme.selectionColor),
             ),
           ),
         )
@@ -249,7 +253,7 @@ class _RateDialogState extends State<RateDialog> {
             style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700,
-                color: Theme.of(context).textSelectionColor),
+                color: Theme.of(context).textSelectionTheme.selectionColor),
           ),
           SizedBox(height: 16.0),
           Center(child: callRating()),
@@ -259,7 +263,8 @@ class _RateDialogState extends State<RateDialog> {
             // DemoLocalizations.of(context).badRateDescription,
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 16.0, color: Theme.of(context).textSelectionColor),
+                fontSize: 16.0,
+                color: Theme.of(context).textSelectionTheme.selectionColor),
           ),
           SizedBox(height: 16.0),
           Align(
@@ -275,24 +280,29 @@ class _RateDialogState extends State<RateDialog> {
                 return null;
               },
               style: TextStyle(
-                  color: Theme.of(context).textSelectionColor,
+                  color: Theme.of(context).textSelectionTheme.selectionColor,
                   decorationColor: Colors.red),
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color:
-                          Theme.of(context).textSelectionColor.withOpacity(0.8),
+                      color: Theme.of(context)
+                          .textSelectionTheme
+                          .selectionColor
+                          .withOpacity(0.8),
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color:
-                          Theme.of(context).textSelectionColor.withOpacity(0.8),
+                      color: Theme.of(context)
+                          .textSelectionTheme
+                          .selectionColor
+                          .withOpacity(0.8),
                     ),
                   ),
-                  hintStyle:
-                      TextStyle(color: Theme.of(context).textSelectionColor),
+                  hintStyle: TextStyle(
+                      color:
+                          Theme.of(context).textSelectionTheme.selectionColor),
                   hintText: widget.texts[
                       'badRateTextAreaHinit']), //  DemoLocalizations.of(context).badRateTextAreaHinit),
             ),
@@ -302,7 +312,7 @@ class _RateDialogState extends State<RateDialog> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: FlatButton(
+            child: TextButton(
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   var timeStamp = DateTime.now();
@@ -336,7 +346,8 @@ class _RateDialogState extends State<RateDialog> {
               child: Text(
                 widget.texts['badBtnSend'],
                 // DemoLocalizations.of(context).badBtnSend,
-                style: TextStyle(color: Theme.of(context).textSelectionColor),
+                style: TextStyle(
+                    color: Theme.of(context).textSelectionTheme.selectionColor),
               ),
             ),
           ),
