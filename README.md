@@ -1,6 +1,13 @@
+
+
 # rate_my_app
 
 A new Flutter package project.
+
+# Installation:
+  
+  rate_my_app:
+    git: https://github.com/tibimate87/rate_my_app.git
 
 ## Getting Started
 
