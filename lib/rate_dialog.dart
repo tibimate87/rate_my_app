@@ -276,18 +276,12 @@ class _RateDialogState extends State<RateDialog> {
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Theme.of(context)
-                          .textSelectionTheme
-                          .selectionColor
-                          .withOpacity(0.8),
+                      color: widget.textColor.withOpacity(0.8),
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Theme.of(context)
-                          .textSelectionTheme
-                          .selectionColor
-                          .withOpacity(0.8),
+                      color: widget.textColor.withOpacity(0.8),
                     ),
                   ),
                   hintStyle: TextStyle(color: widget.textColor),
