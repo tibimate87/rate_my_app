@@ -28,10 +28,10 @@ class ChannelCall {
   //   return result == '1';
   // }
 
-  Future<void> openPlayStore() async {
+  Future<void> openPlayStore(String androidAppId, String iOSAppId) async {
     Platform.isAndroid
-        ? LaunchReview.launch(androidAppId: "com.matapplications.meseljnekem")
-        : LaunchReview.launch(iOSAppId: "1513802599", writeReview: true);
+        ? LaunchReview.launch(androidAppId: androidAppId)
+        : LaunchReview.launch(iOSAppId: iOSAppId, writeReview: true);
     // var result = await _channel.invokeMethod("openPlayStore");
     // debugPrint("result: $result");
   }

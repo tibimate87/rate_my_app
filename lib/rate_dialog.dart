@@ -14,19 +14,23 @@ class RateDialog extends StatefulWidget {
   final Function sendDataToFB;
   final Color backgroundColor;
   final Color textColor;
+  final String androidAppId;
+  final String iOSAppId;
   // final Map<String, Map<String, String>> langTexts;
 
-  RateDialog(
-      {@required this.minimeRateIsGood,
-      this.image,
-      this.afterStarRedirect,
-      this.emailAdmin = '',
-      @required this.texts,
-      @required this.sendDataToFB,
-      @required this.backgroundColor,
-      @required this.textColor
-      // @required this.langTexts,
-      });
+  RateDialog({
+    @required this.minimeRateIsGood,
+    this.image,
+    this.afterStarRedirect,
+    this.emailAdmin = '',
+    @required this.texts,
+    @required this.sendDataToFB,
+    @required this.backgroundColor,
+    @required this.textColor,
+    @required this.androidAppId,
+    @required this.iOSAppId,
+    // @required this.langTexts,
+  });
 
   @override
   _RateDialogState createState() => _RateDialogState();
@@ -203,7 +207,7 @@ class _RateDialogState extends State<RateDialog> {
           alignment: Alignment.bottomCenter,
           child: TextButton(
             onPressed: () {
-              ChannelCall().openPlayStore();
+              ChannelCall().openPlayStore(widget.androidAppId, widget.iOSAppId);
 
               var timeStamp = DateTime.now();
               var data = {
@@ -380,7 +384,8 @@ class _RateDialogState extends State<RateDialog> {
                 //   "user": auth.user().uid,
                 // });
 
-                ChannelCall().openPlayStore();
+                ChannelCall()
+                    .openPlayStore(widget.androidAppId, widget.iOSAppId);
                 _updateRatedDatabase(rated: true);
                 setState(() {});
                 Navigator.of(context).pop();

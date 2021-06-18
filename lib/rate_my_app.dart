@@ -21,6 +21,8 @@ class RateAppDialog {
   final Function sendDataToFB;
   final Color backgroundColor;
   final Color textcolor;
+  final String androidAppId;
+  final String iOSAppId;
 
   static Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
@@ -36,6 +38,8 @@ class RateAppDialog {
     @required this.sendDataToFB,
     @required this.backgroundColor,
     @required this.textcolor,
+    @required this.androidAppId,
+    @required this.iOSAppId,
   });
 
   requestRate() async {
@@ -62,6 +66,8 @@ class RateAppDialog {
           () => showDialog(
               context: context,
               builder: (BuildContext context) => RateDialog(
+                    androidAppId: androidAppId,
+                    iOSAppId: iOSAppId,
                     backgroundColor: backgroundColor,
                     textColor: textcolor,
                     afterStarRedirect: afterStarRedirect,
