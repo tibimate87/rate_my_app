@@ -19,19 +19,24 @@ class RateAppDialog {
   final String emailAdmin;
   final Map<String, String> texts;
   final Function sendDataToFB;
+  final Color backgroundColor;
+  final Color textcolor;
 
   static Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  RateAppDialog(
-      {this.context,
-      this.minimeRateIsGood = 4,
-      this.minimeRequestToShow = 4,
-      this.afterStarRedirect = false,
-      this.customDialogIOS = false,
-      this.timeToShow = 0,
-      this.emailAdmin = '',
-      this.texts,
-      @required this.sendDataToFB});
+  RateAppDialog({
+    this.context,
+    this.minimeRateIsGood = 4,
+    this.minimeRequestToShow = 4,
+    this.afterStarRedirect = false,
+    this.customDialogIOS = false,
+    this.timeToShow = 0,
+    this.emailAdmin = '',
+    this.texts,
+    @required this.sendDataToFB,
+    @required this.backgroundColor,
+    @required this.textcolor,
+  });
 
   requestRate() async {
     int numeroRequest = await _updateRateRequest();
@@ -57,6 +62,8 @@ class RateAppDialog {
           () => showDialog(
               context: context,
               builder: (BuildContext context) => RateDialog(
+                    backgroundColor: backgroundColor,
+                    textColor: textcolor,
                     afterStarRedirect: afterStarRedirect,
                     minimeRateIsGood: minimeRateIsGood,
                     emailAdmin: emailAdmin,
